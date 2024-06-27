@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Daily Sales Data</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        table {
+            width: 60%;
+            margin-top: 20px;
+            border-collapse: collapse;
+            text-align: center;
+        }
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+        th, td {
+            padding: 10px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .chart-container {
+            width: 50%; /* Adjust this percentage to change chart size */
+            margin-top: 30px;
+        }
+        canvas {
+            width: 100% !important; /* Ensures the canvas respects the container's width */
+            height: auto !important; /* Maintains aspect ratio */
+        }
+    </style>
+</head>
+<body>
+    <h1>Daily Sales Data</h1>
+
+    <!-- Table -->
+    <table>
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Total Sales</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for sale in sales %}
+                <tr>
+                    <td>{{ sale.date }}</td>
+                    <td>₹{{ sale.total_price }}</td> <!-- Assuming total_price is in the required currency -->
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Bar Chart -->
+    <div class="chart-container">
+        <canvas id="salesChart"></canvas>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var ctx = document.getElementById('salesChart').getContext('2d');
+            var salesChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: [{% for sale in sales %}"{{ sale.date }}",{% endfor %}],
+                    datasets: [{
+                        label: 'Daily Sales',
+                        data: [{% for sale in sales %}{{ sale.total_price }},{% endfor %}],
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
