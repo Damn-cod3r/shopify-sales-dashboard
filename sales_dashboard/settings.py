@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'sales',
-    'shopify_auth',
+    
 ]
 SHOPIFY_APP_API_KEY = '76a2fd77d2cc4b18943f412e0a1631fa'
 SHOPIFY_APP_API_SECRET = '98b4e1a06020e0425fd12855a68fc0f4'
