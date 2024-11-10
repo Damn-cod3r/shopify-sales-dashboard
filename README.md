@@ -1,7 +1,4 @@
 # Shopify Sales Data Visualization
-
-
-
 ## Description
 
 This Django application connects to the Shopify API to pull a merchant’s sales data and displays the daily sales data in both a chart and tabular format. The application fetches sales data for the last 10 days and stores it in a Django database. The data is then visualized in table and chart format using Chart.js.
